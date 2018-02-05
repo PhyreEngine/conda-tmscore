@@ -1,0 +1,27 @@
+{% set name = "TMscore" %}
+{% set version = "2017.07.08" %}
+
+package:
+  name: {{ name | lower }}
+  version: {{ version }}
+
+source:
+  url: https://zhanglab.ccmb.med.umich.edu/TM-score/TMscore.f
+  sha256: fa04cc8b83502d1f60e103f3fab2a1fc4d3a25422629068bdc6d80de7a03137c
+
+build:
+  script: |
+    ${GFORTRAN} -O3 -ffast-math -lm -o TMscore TMscore.f
+    install -d "$PREFIX/bin"
+    install -m755 '{{ name }}' "$PREFIX/bin"
+
+requirements:
+  build:
+  - {{ compiler('fortran') }}
+  - libgcc-ng
+  host:
+  - libgcc-ng
+  - libgfortran-ng
+
+about:
+  home: https://zhanglab.ccmb.med.umich.edu/TM-score/
