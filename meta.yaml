@@ -10,6 +10,7 @@ source:
   sha256: fa04cc8b83502d1f60e103f3fab2a1fc4d3a25422629068bdc6d80de7a03137c
 
 build:
+  number: {{ environ.get("BUILD_NUMBER", 0) }}
   script: |
     ${GFORTRAN} -O3 -ffast-math -lm -o TMscore TMscore.f
     install -d "$PREFIX/bin"
